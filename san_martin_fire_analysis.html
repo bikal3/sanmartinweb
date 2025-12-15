@@ -1680,6 +1680,9 @@ Inside Titled &amp; Pending Territories</h3>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co"># Disable spherical geometry for compatibility with complex Peruvian polygons</span></span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>sf<span class="sc">::</span><span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span></code></pre></div>
+<div id="data-loading-and-preparation" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Data Loading and
+Preparation</h1>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>indigenouspath <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;indigenous&quot;</span>,<span class="st">&quot;indigenous_territories.shp&quot;</span>, <span class="at">package =</span> <span class="st">&quot;sanmartinwildfire&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>sanmartinpath <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;sanmartin&quot;</span>,<span class="st">&quot;sanmartin.shp&quot;</span>, <span class="at">package =</span> <span class="st">&quot;sanmartinwildfire&quot;</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>firepath <span class="ot">&lt;-</span>  <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>,<span class="st">&quot;all_fires.gpkg&quot;</span>, <span class="at">package =</span> <span class="st">&quot;sanmartinwildfire&quot;</span>)</span></code></pre></div>
@@ -1724,10 +1727,8 @@ Inside Titled &amp; Pending Territories</h3>
 <p>Approximately <strong>4.2%</strong> of all regional fires occurred
 within titled indigenous territories, indicating that these areas
 experience substantially lower fire incidence compared to the rest of
-the region.</p>
-<div id="annual-fire-frequency-inside-indigenous-territories" class="section level2" number="0.1">
-<h2><span class="header-section-number">0.1</span> Annual Fire Frequency
-Inside Indigenous Territories</h2>
+the region. # Wildfire Territories Analysis ## Annual Fire Frequency
+Inside Indigenous Territories</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>annual_freq <span class="ot">&lt;-</span> fires_in_indigenous <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">count</span>(year, <span class="at">name =</span> <span class="st">&quot;fire_count&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -1756,9 +1757,8 @@ Inside Indigenous Territories</h2>
 between 2004-2011. A clear decline follows the 2011 regime shift, with
 consistently lower values thereafter and a modest increase in recent
 years (e.g., 25 fires in 2024).</p>
-</div>
-<div id="statistical-trend-and-regime-shift-analysis" class="section level2" number="0.2">
-<h2><span class="header-section-number">0.2</span> Statistical Trend and
+<div id="statistical-trend-and-regime-shift-analysis" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Statistical Trend and
 Regime Shift Analysis</h2>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Mann-Kendall non-parametric trend test</span></span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>mk_result <span class="ot">&lt;-</span> <span class="fu">mk.test</span>(annual_freq<span class="sc">$</span>fire_count)</span>
@@ -1788,8 +1788,8 @@ significant regime shifts were identified: one in <strong>2003</strong>
 (transition into a higher-fire period) and a second in
 <strong>2011</strong> (sharp transition to a sustained low-fire
 regime).</p>
-<div id="annual-fire-detections-with-regime-shifts" class="section level3" number="0.2.1">
-<h3><span class="header-section-number">0.2.1</span> Annual Fire
+<div id="annual-fire-detections-with-regime-shifts" class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Annual Fire
 Detections with Regime Shifts</h3>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Labels for changepoint years</span></span>
 <span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>label_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
@@ -1839,8 +1839,8 @@ Detections with Regime Shifts</h3>
 low-fire period from 2011 onward. The 2011 shift corresponds to a
 sustained decline in fire activity within indigenous territories.</p>
 </div>
-<div id="spatial-evolution-of-fires-in-indigenous-territories" class="section level3" number="0.2.2">
-<h3><span class="header-section-number">0.2.2</span> Spatial Evolution
+<div id="spatial-evolution-of-fires-in-indigenous-territories" class="section level3" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Spatial Evolution
 of Fires in Indigenous Territories</h3>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>map_plots <span class="ot">&lt;-</span> <span class="fu">lapply</span>(annual_freq<span class="sc">$</span>year, <span class="cf">function</span>(yr) {</span>
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  yr_fires <span class="ot">&lt;-</span> fires_in_indigenous <span class="sc">%&gt;%</span></span>
@@ -1891,16 +1891,16 @@ fires in most years thereafter.</p>
 <hr />
 </div>
 </div>
-<div id="summary" class="section level2" number="0.3">
-<h2><span class="header-section-number">0.3</span> Summary</h2>
+<div id="summary" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Summary</h2>
 <p>This analysis examined fire risk within titled and pending indigenous
 territories in San Martin, Peru (2000-2024) using MODIS active fire
 detection. Indigenous territories have significantly lower fire
 incidence and have acted as effective firewalls against fire.</p>
 <hr />
 </div>
-<div id="key-numbers" class="section level2" number="0.4">
-<h2><span class="header-section-number">0.4</span> Key Numbers</h2>
+<div id="key-numbers" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Key Numbers</h2>
 <table>
 <colgroup>
 <col width="53%" />
@@ -1946,10 +1946,11 @@ period)</td>
 </table>
 <hr />
 </div>
-<div id="main-findings" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Main Findings</h1>
-<div id="indigenous-territories-experience-very-low-fire-incidence" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Indigenous
+</div>
+<div id="main-findings" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Main Findings</h1>
+<div id="indigenous-territories-experience-very-low-fire-incidence" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Indigenous
 Territories Experience Very Low Fire Incidence</h2>
 <ul>
 <li>Only <strong>4.2%</strong> of all 11,989 regional fires occurred
@@ -1959,8 +1960,8 @@ consistently show far fewer fires than the regional average.</li>
 </ul>
 <p>So indigenous territories are disproportionately fire-safe zones.</p>
 </div>
-<div id="clear-regime-shifts-over-time" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Clear Regime Shifts
+<div id="clear-regime-shifts-over-time" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Clear Regime Shifts
 Over Time</h2>
 <ul>
 <li><strong>2000-2002:</strong> Low-fire baseline</li>
@@ -1973,8 +1974,8 @@ pre-2011 levels.</li>
 </ul>
 <p>A major positive shift occurred around 2011, reducing fire risk
 dramatically.</p>
-<div id="no-significant-long-term-increasing-trend" class="section level3" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> No Significant
+<div id="no-significant-long-term-increasing-trend" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> No Significant
 Long-Term Increasing Trend</h3>
 <ul>
 <li>Mann-Kendall test confirms no statistically significant trend across
@@ -1986,8 +1987,8 @@ early high period balanced by the long low-fire regime.</li>
 at low levels since 2011.</p>
 </div>
 </div>
-<div id="spatial-patterns-confirm-temporal-trends" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Spatial Patterns
+<div id="spatial-patterns-confirm-temporal-trends" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Spatial Patterns
 Confirm Temporal Trends</h2>
 <ul>
 <li>High-fire years (2003-2010) show scattered fires across multiple
@@ -1997,8 +1998,8 @@ detections.</li>
 </ul>
 <p>Thus the decline is both temporal and spatially widespread.</p>
 </div>
-<div id="most-affected-areas" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Most Affected
+<div id="most-affected-areas" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Most Affected
 Areas</h2>
 <ul>
 <li>Based on map observations, indigenous communities and areas such as
@@ -2013,10 +2014,10 @@ the high-fire period.</p>
 <hr />
 </div>
 </div>
-<div id="what-this-means" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> What This Means</h1>
-<div id="for-indigenous-land-rights" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> For Indigenous Land
+<div id="what-this-means" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> What This Means</h1>
+<div id="for-indigenous-land-rights" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> For Indigenous Land
 Rights</h2>
 <ul>
 <li>The <strong>2011 regime shift</strong> coincides with strengthened
@@ -2028,8 +2029,8 @@ proven highly effective at reducing fire incidence</li>
 they actively suppress it.</li>
 </ul>
 </div>
-<div id="for-fire-management-and-conservation-policy" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> For Fire Management
+<div id="for-fire-management-and-conservation-policy" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> For Fire Management
 and Conservation Policy</h2>
 <ul>
 <li>Protecting and expanding indigenous land rights is one of the most
@@ -2041,8 +2042,8 @@ territories should be supported and replicated, with special focus on
 high-risk areas like Shampuyacu and Alto Mayo.</li>
 </ul>
 </div>
-<div id="current-risk-assessment" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Current Risk
+<div id="current-risk-assessment" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Current Risk
 Assessment</h2>
 <ul>
 <li>Recent modest increases (2021-2024) are concerning but have not
@@ -2053,8 +2054,8 @@ potential reversal.</li>
 <hr />
 </div>
 </div>
-<div id="policy-recommendations" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Policy
+<div id="policy-recommendations" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Policy
 Recommendations</h1>
 <ul>
 <li>Continue supporting community fire management programs and
@@ -2066,8 +2067,8 @@ emerging regime shift within the next few years.</li>
 </ul>
 <hr />
 </div>
-<div id="conclusion" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Conclusion</h1>
+<div id="conclusion" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Conclusion</h1>
 <p><strong>Indigenous territories in San Martin have served as effective
 firewalls against fire over the past 25 years.</strong> The dramatic
 reduction in fire incidence following the 2011 regime shift demonstrates
