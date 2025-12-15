@@ -1668,56 +1668,70 @@ Occurance</h1>
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; terra 1.8.29</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt; Linking to GEOS 3.13.0, GDAL 3.10.1, PROJ 9.5.1; sf_use_s2() is</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#&gt; TRUE</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#&gt; ── Attaching core tidyverse packages ──────────── tidyverse 2.0.0 ──</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt; ✔ dplyr     1.1.4     ✔ readr     2.1.6</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt; ✔ forcats   1.0.1     ✔ stringr   1.5.1</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt; ✔ ggplot2   4.0.1     ✔ tibble    3.2.1</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt; ✔ lubridate 1.9.4     ✔ tidyr     1.3.1</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">#&gt; ✔ purrr     1.0.4</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt; ── Conflicts ────────────────────────────── tidyverse_conflicts() ──</span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">#&gt; ✖ tidyr::extract() masks terra::extract()</span></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#&gt; ✖ dplyr::filter()  masks stats::filter()</span></span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#&gt; ✖ dplyr::lag()     masks stats::lag()</span></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co">#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.data</span></span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.univar</span></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">#&gt; spatstat.univar 3.1-5</span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.geom</span></span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">#&gt; spatstat.geom 3.6-1</span></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;spatstat.geom&#39;</span></span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:terra&#39;:</span></span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co">#&gt;     area, delaunay, is.empty, rescale, rotate, shift,</span></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt;     where.max, where.min</span></span>
-<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.random</span></span>
-<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a><span class="co">#&gt; spatstat.random 3.4-3</span></span>
-<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.explore</span></span>
-<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a><span class="co">#&gt; Loading required package: nlme</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;terra&#39;</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:patchwork&#39;:</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#&gt;     area</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:changepoint&#39;:</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt;     nseg</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:zoo&#39;:</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt;     time&lt;-</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:tidyr&#39;:</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#&gt;     extract</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">#&gt; ── Attaching core tidyverse packages ──────────── tidyverse 2.0.0 ──</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">#&gt; ✔ forcats 1.0.1     ✔ stringr 1.5.1</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#&gt; ✔ purrr   1.0.4     ✔ tibble  3.2.1</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">#&gt; ✔ readr   2.1.6</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">#&gt; ── Conflicts ────────────────────────────── tidyverse_conflicts() ──</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">#&gt; ✖ terra::extract() masks tidyr::extract()</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">#&gt; ✖ dplyr::filter()  masks stats::filter()</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co">#&gt; ✖ dplyr::lag()     masks stats::lag()</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.data</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.univar</span></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="co">#&gt; spatstat.univar 3.1-5</span></span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.geom</span></span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a><span class="co">#&gt; spatstat.geom 3.6-1</span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;spatstat.geom&#39;</span></span>
 <span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;nlme&#39;</span></span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:terra&#39;:</span></span>
 <span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:dplyr&#39;:</span></span>
-<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a><span class="co">#&gt;     collapse</span></span>
-<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a><span class="co">#&gt; spatstat.explore 3.6-0</span></span>
-<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.model</span></span>
-<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a><span class="co">#&gt; Loading required package: rpart</span></span>
-<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a><span class="co">#&gt; spatstat.model 3.5-0</span></span>
-<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.linnet</span></span>
-<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a><span class="co">#&gt; spatstat.linnet 3.4-0</span></span>
-<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a><span class="co">#&gt; spatstat 3.5-0 </span></span>
-<span id="cb1-52"><a href="#cb1-52" tabindex="-1"></a><span class="co">#&gt; For an introduction to spatstat, type &#39;beginner&#39;</span></span></code></pre></div>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="co">#&gt;     area, delaunay, is.empty, rescale, rotate, shift,</span></span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a><span class="co">#&gt;     where.max, where.min</span></span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:patchwork&#39;:</span></span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a><span class="co">#&gt;     area</span></span>
+<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.random</span></span>
+<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a><span class="co">#&gt; spatstat.random 3.4-3</span></span>
+<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.explore</span></span>
+<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a><span class="co">#&gt; Loading required package: nlme</span></span>
+<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-52"><a href="#cb1-52" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;nlme&#39;</span></span>
+<span id="cb1-53"><a href="#cb1-53" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-54"><a href="#cb1-54" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:dplyr&#39;:</span></span>
+<span id="cb1-55"><a href="#cb1-55" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-56"><a href="#cb1-56" tabindex="-1"></a><span class="co">#&gt;     collapse</span></span>
+<span id="cb1-57"><a href="#cb1-57" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-58"><a href="#cb1-58" tabindex="-1"></a><span class="co">#&gt; spatstat.explore 3.6-0</span></span>
+<span id="cb1-59"><a href="#cb1-59" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.model</span></span>
+<span id="cb1-60"><a href="#cb1-60" tabindex="-1"></a><span class="co">#&gt; Loading required package: rpart</span></span>
+<span id="cb1-61"><a href="#cb1-61" tabindex="-1"></a><span class="co">#&gt; spatstat.model 3.5-0</span></span>
+<span id="cb1-62"><a href="#cb1-62" tabindex="-1"></a><span class="co">#&gt; Loading required package: spatstat.linnet</span></span>
+<span id="cb1-63"><a href="#cb1-63" tabindex="-1"></a><span class="co">#&gt; spatstat.linnet 3.4-0</span></span>
+<span id="cb1-64"><a href="#cb1-64" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-65"><a href="#cb1-65" tabindex="-1"></a><span class="co">#&gt; spatstat 3.5-0 </span></span>
+<span id="cb1-66"><a href="#cb1-66" tabindex="-1"></a><span class="co">#&gt; For an introduction to spatstat, type &#39;beginner&#39;</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>landuse_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;landcover&quot;</span>, <span class="at">package =</span> <span class="st">&quot;sanmartinwildfire&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>fires_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;sanmartin&quot;</span>, <span class="at">package =</span> <span class="st">&quot;sanmartinwildfire&quot;</span>)</span></code></pre></div>
 <div id="agriculture-analysis" class="section level1" number="1">
@@ -2327,13 +2341,14 @@ area.</p>
 <span id="cb32-10"><a href="#cb32-10" tabindex="-1"></a><span class="co"># cat(&quot;  • agriculture_expansion_vs_fires.csv\n&quot;)</span></span>
 <span id="cb32-11"><a href="#cb32-11" tabindex="-1"></a><span class="co"># cat(&quot;  • fire_density_agriculture_analysis.csv\n&quot;)</span></span></code></pre></div>
 </div>
-<div id="summary" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Summary</h2>
+</div>
+<div id="summary" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Summary</h1>
 <p>This analysis examined whether agricultural expansion drives fire
 occurrence in San Martin, Peru (2000-2024). Key findings include:</p>
-<div id="no-correlation-between-agriculture-and-fires" class="section level3" number="4.4.1">
-<h3><span class="header-section-number">4.4.1</span> 1. No Correlation
-Between Agriculture and Fires</h3>
+<div id="no-correlation-between-agriculture-and-fires" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> No Correlation
+Between Agriculture and Fires</h2>
 <ul>
 <li>Agricultural area grew 19.5% over 25 years</li>
 <li>Fire activity had no proportional relationship</li>
@@ -2342,9 +2357,9 @@ Between Agriculture and Fires</h3>
 fires.</li>
 </ul>
 </div>
-<div id="complete-geographic-separation" class="section level3" number="4.4.2">
-<h3><span class="header-section-number">4.4.2</span> 2. Complete
-Geographic Separation</h3>
+<div id="complete-geographic-separation" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Complete Geographic
+Separation</h2>
 <ul>
 <li><strong>ALL 11,989 fires occur MORE THAN 10km away from agricultural
 areas</strong></li>
@@ -2355,9 +2370,9 @@ areas</strong></li>
 places.</li>
 </ul>
 </div>
-<div id="fires-are-scattered-not-concentrated" class="section level3" number="4.4.3">
-<h3><span class="header-section-number">4.4.3</span> 3. Fires Are
-Scattered, Not Concentrated</h3>
+<div id="fires-are-scattered-not-concentrated" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Fires Are Scattered,
+Not Concentrated</h2>
 <ul>
 <li>11,977 pixels burned only once (99.9%)</li>
 <li>Only 6 pixels burned twice</li>
@@ -2366,9 +2381,9 @@ Scattered, Not Concentrated</h3>
 year</li>
 </ul>
 </div>
-<div id="fire-hotspot-is-stable" class="section level3" number="4.4.4">
-<h3><span class="header-section-number">4.4.4</span> 4. Fire Hotspot Is
-Stable</h3>
+<div id="fire-hotspot-is-stable" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Fire Hotspot Is
+Stable</h2>
 <ul>
 <li>Main fire cluster in center-south region remained the same for 25
 years</li>
@@ -2378,11 +2393,10 @@ of agriculture</li>
 </ul>
 </div>
 </div>
-<div id="what-this-means" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> What This Means</h2>
-<div id="for-agriculture" class="section level3" number="4.5.1">
-<h3><span class="header-section-number">4.5.1</span> For
-Agriculture</h3>
+<div id="what-this-means" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> What This Means</h1>
+<div id="for-agriculture" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> For Agriculture</h2>
 <ul>
 <li>Agricultural expansion is <strong>NOT</strong> causing fires</li>
 <li>Farmers expanding farms does <strong>NOT</strong> increase regional
@@ -2390,9 +2404,9 @@ fire activity</li>
 <li>No need to restrict agriculture based on fire concerns</li>
 </ul>
 </div>
-<div id="for-fire-management" class="section level3" number="4.5.2">
-<h3><span class="header-section-number">4.5.2</span> For Fire
-Management</h3>
+<div id="for-fire-management" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> For Fire
+Management</h2>
 <ul>
 <li>Focus fire prevention on the <strong>south-eastern hotspot</strong>
 (where fires actually occur)</li>
@@ -2401,8 +2415,8 @@ vegetation</strong> - not agriculture</li>
 <li>Agricultural areas are relatively <strong>fire-safe</strong></li>
 </ul>
 </div>
-<div id="the-paradox" class="section level3" number="4.5.3">
-<h3><span class="header-section-number">4.5.3</span> The Paradox</h3>
+<div id="the-paradox" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> The Paradox</h2>
 <ul>
 <li>55% of fires occur “in agriculture” (by land classification)</li>
 <li>But 0% of fires occur near agriculture (by spatial proximity)</li>
@@ -2414,15 +2428,14 @@ causing the other)</li>
 </ul>
 </div>
 </div>
-<div id="conclusion" class="section level2" number="4.6">
-<h2><span class="header-section-number">4.6</span> Conclusion</h2>
+<div id="conclusion" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Conclusion</h1>
 <p><strong>Agricultural expansion in San Martín does NOT drive fire
 patterns.</strong> Fires and agriculture occupy different geographic
 zones. Fire occurrence appears to be driven by environmental factors
 (climate, topography, vegetation) rather than by agricultural activities
 or proximity. Agricultural expansion can proceed without expectation of
 increased fire activity in the region.</p>
-</div>
 </div>
 
 
